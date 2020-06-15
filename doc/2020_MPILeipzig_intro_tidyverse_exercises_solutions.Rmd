@@ -100,14 +100,16 @@ data_attitude_wine <-
       "1" = "female", "2" = "male"
     )
   ) %>%
-  dplyr::select(-c(
-    sex,
-    beerpos,
-    beerneg,
-    beerneut,
-    winepos,
-    waterpos
-  )) %>%
+  dplyr::select(
+    -c(
+      sex,
+      beerpos,
+      beerneg,
+      beerneut,
+      winepos,
+      waterpos
+    )
+  ) %>%
   dplyr::rename(
     participant = ssj,
     wine_negative = wineneg,
@@ -206,12 +208,14 @@ library(ggpirate)
 
 RDIplot_ex_3_1 <-
   data_attitude_wine %>%
-  ggplot(aes(
-    x = imagery,
-    y = ratings,
-    color = drink,
-    fill = drink
-  )) +
+  ggplot(
+    aes(
+      x = imagery,
+      y = ratings,
+      color = drink,
+      fill = drink
+    )
+  ) +
   geom_pirate(
     bars = FALSE,
     cis = TRUE,
@@ -377,7 +381,8 @@ afex_options(emmeans_model = "multivariate")
 
 posthoc_att_wine <-
   emmeans(rmANOVA_att_wine, ~ imagery * drink) %>%
-  pairs(.,
+  pairs(
+    .,
     test = adjusted("free")
   ) %>%
   as.glht() %>%
@@ -486,7 +491,8 @@ Paired contrasts: test **only** difference ratings between *female* and *male* p
 
 posthoc_att_wine_gender <-
   emmeans(rmANOVA_att_wine_gender, ~ gender | imagery | drink) %>%
-  pairs(.,
+  pairs(
+    .,
     test = adjusted("free")
   ) %>%
   as.glht() %>%

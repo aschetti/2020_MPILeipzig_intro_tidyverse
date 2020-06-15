@@ -574,7 +574,7 @@ barplot_basic # visualize the plot
 
 ```
 
-The data are not displayed... why? The `ggplot` function includes data (what you want to visualize) and aesthetic mappings  (e.g., which variable should be represented on the x-axis?), but the visualization itself is carried out by layers, for example geometric elements (e.g., points or lines). For more details, check out [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org/).
+The data are not displayed... why? The `ggplot` function includes data (what you want to visualize) and aesthetic mappings  (e.g., which variable should be represented on the x-axis?), but the visualization itself is carried out by **layers**, for example geometric elements (e.g., points or lines). For more details, check out [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org/).
 
 Since we want to create a bar graph, we must use `geom_bar`.
 
@@ -584,7 +584,7 @@ barplot_1 <-
   barplot_basic +
   geom_bar(stat = "identity") # use the values in the data frame (no transformations)
 
-barplot_1 # show plot
+barplot_1
 
 ```
 
@@ -627,13 +627,14 @@ Note that now we can overlay this new `geom` over `barplot_3`, because we don't 
 
 barplot_4 <-
   barplot_3 +
-  geom_errorbar(aes(
-    # half the standard deviation below and and above the mean
-    ymin = mean - sd / 2,
-    ymax = mean + sd / 2
-  ),
-  width = .2, # width of the error bars
-  position = position_dodge(.9) # position (centered on the bar)
+  geom_errorbar(
+    aes(
+      # half the standard deviation below and and above the mean
+      ymin = mean - sd / 2,
+      ymax = mean + sd / 2
+    ),
+    width = .2, # width of the error bars
+    position = position_dodge(.9) # position (centered on the bar)
   )
 
 barplot_4
@@ -668,9 +669,10 @@ Let's add a final cosmetic touch.
 
 barplot_6 <-
   barplot_5 +
-  scale_y_continuous("", # y-axis: no title
-    limits = c(-16, 16), # y-axis: min/max values
-    breaks = seq(-16, 16, 4) # y-axis: tick marks
+  scale_y_continuous( # y-axis...
+    "", # no title
+    limits = c(-16, 16), # min/max values
+    breaks = seq(-16, 16, 4) # tick marks
   ) +
   geom_hline( # horizontal lines...
     yintercept = seq(-16, 16, 4), # ... following tick marks
@@ -735,12 +737,14 @@ Here is the code for the plot:
 
 RDIplot <-
   att_filter_select_recode_long_sep_onego %>%
-  ggplot(aes(
-    x = imagery,
-    y = ratings,
-    color = drink, # different line colors for different levels of 'drink' variable
-    fill = drink # different fill colors for different levels of 'drink' variable
-  )) +
+  ggplot(
+    aes(
+      x = imagery,
+      y = ratings,
+      color = drink, # different line colors for different levels of 'drink' variable
+      fill = drink # different fill colors for different levels of 'drink' variable
+    )
+  ) +
   geom_pirate(
     bars = FALSE, # no bars
     cis = TRUE, # confidence intervals
@@ -780,7 +784,7 @@ RDIplot
 
 I hope it doesn't feel like this:
 
-```{r owl, echo = FALSE, out.width = "80%", fig.cap = "*How to draw an owl. Source: [Know Your Meme](https://knowyourmeme.com/memes/how-to-draw-an-owl)*"}
+```{r owl, echo = FALSE, out.width = "80%", fig.cap = "*How to draw an owl. Source: [Know Your Meme](https://knowyourmeme.com/memes/how-to-draw-an-owl).*"}
 
 include_graphics("images/owl.png")
 
@@ -866,13 +870,14 @@ The code below shows how to run an ANOVA with this versatile and user-friendly p
 
 library(afex)
 
-rmANOVA_att <- aov_ez(
-  data = att_filter_select_recode_long_sep_onego, # data 
-  id = "participant", # variable with subject identifier
-  dv = "ratings", # dependent variable
-  within = c("drink", "imagery"), # within-subject variables
-  type = 3 # type-III sums of squares (default in SPSS)
-)
+rmANOVA_att <-
+  aov_ez(
+    data = att_filter_select_recode_long_sep_onego, # data
+    id = "participant", # variable with subject identifier
+    dv = "ratings", # dependent variable
+    within = c("drink", "imagery"), # within-subject variables
+    type = 3 # type-III sums of squares (default in SPSS)
+  )
 
 rmANOVA_att
 
@@ -1014,7 +1019,7 @@ att_HedgesG <-
 
 ```
 
-The output (```att_HedgesG```) is a data frame containing the results of the bootstrapping procedure for each ```diff_conds```.
+The output (```att_HedgesG```) is a tibble containing the results of the bootstrapping procedure for each ```diff_conds```.
 
 This is a very flexible and powerful approach, which can be used to run all kinds of operations to subsets of your data. See an example [here](https://r4ds.had.co.nz/many-models.html) on how to run many linear models simultaneously.
 
