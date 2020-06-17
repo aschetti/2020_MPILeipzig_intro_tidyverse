@@ -630,8 +630,8 @@ barplot_4 <-
   geom_errorbar(
     aes(
       # half the standard deviation below and and above the mean
-      ymin = mean - sd / 2,
-      ymax = mean + sd / 2
+      ymin = mean - sd,
+      ymax = mean + sd
     ),
     width = .2, # width of the error bars
     position = position_dodge(.9) # position (centered on the bar)
