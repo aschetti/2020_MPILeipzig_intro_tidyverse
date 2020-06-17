@@ -1,5 +1,6 @@
 ---
-title: '<center> <h1> Reproducible data analysis using R and the ```tidyverse``` -- Solutions </h1> </center>'
+title: '<center> <h1> Reproducible data analysis using R and the ```tidyverse``` </h1> </center>'
+subtitle: '<center> <h1> Solutions </h1> </center>'
 author: '[Antonio Schettino](https://asch3tti.netlify.com/ "Antonio Schettino")'
 date: 'June 18th, 2020'
 output:
