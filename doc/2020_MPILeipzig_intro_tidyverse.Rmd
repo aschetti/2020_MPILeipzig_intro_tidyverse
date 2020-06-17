@@ -629,7 +629,7 @@ barplot_4 <-
   barplot_3 +
   geom_errorbar(
     aes(
-      # half the standard deviation below and and above the mean
+      # standard deviation below and and above the mean
       ymin = mean - sd,
       ymax = mean + sd
     ),
